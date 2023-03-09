@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "rpc.h": "c",
+        "calculadora.h": "c"
+    }
+}
