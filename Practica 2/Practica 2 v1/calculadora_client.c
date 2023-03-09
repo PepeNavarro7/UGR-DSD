@@ -1,20 +1,13 @@
 #include "calculadora.h"
+#include <stdlib.h>
 
 
-void calculadora_1(char *host){
+void calculadora_1(char *host, double x, char op, double  y){
 	CLIENT *clnt;
-	double  *result_1;
-	double suma_1_arg1;
-	double suma_1_arg2;
-	double  *result_2;
-	double resta_1_arg1;
-	double resta_1_arg2;
-	double  *result_3;
-	double multiplica_1_arg1;
-	double multiplica_1_arg2;
-	double  *result_4;
-	double divide_1_arg1;
-	double divide_1_arg2;
+	double  *result;
+	double arg1 = x;
+	double arg2 = y;
+
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, CALCULADORA, BASICA, "udp");
@@ -23,24 +16,18 @@ void calculadora_1(char *host){
 		exit (1);
 	}
 #endif	/* DEBUG */
-
-	result_1 = suma_1(suma_1_arg1, suma_1_arg2, clnt);
-	if (result_1 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
+	switch(op){
+		case '+': result = suma_1(arg1, arg2, clnt); break;
+		case '-': result = resta_1(arg1, arg2, clnt); break;
+		case 'x': result = multiplica_1(arg1, arg2, clnt); break;
+		case '/': result = divide_1(arg1, arg2, clnt); break;
+		default: printf("No reconozco ese operador\n"); break;
 	}
-	result_2 = resta_1(resta_1_arg1, resta_1_arg2, clnt);
-	if (result_2 == (double *) NULL) {
+	if (result == (double *) NULL) {
 		clnt_perror (clnt, "call failed");
+	} else {
+		printf("Resultado: %f %c %f = %f\n",arg1,op,arg2,*result);
 	}
-	result_3 = multiplica_1(multiplica_1_arg1, multiplica_1_arg2, clnt);
-	if (result_3 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_4 = divide_1(divide_1_arg1, divide_1_arg2, clnt);
-	if (result_4 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	printf("Hola");
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
@@ -50,12 +37,14 @@ void calculadora_1(char *host){
 int main (int argc, char *argv[]){
 	char *host;
 
-	if (argc < 2) {
-		printf ("usage: %s server_host\n", argv[0]);
+	if (argc != 5) {
+		printf ("usage: %s server_host operacion\n", argv[0]); //localhost
 		exit (1);
 	}
-	printf("h");
 	host = argv[1];
-	calculadora_1 (host);
-exit (0);
+	double x = strtod(argv[2],NULL), y = strtod(argv[4],NULL);
+	char op = *argv[3];
+	printf("Operacion: %f %c %f\n",x,op,y);
+	calculadora_1(host,x,op,y);
+	exit (0);
 }

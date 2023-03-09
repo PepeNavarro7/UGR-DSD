@@ -1,3 +1,6 @@
+/* 
+4 operaciones, + - x /
+*/
 program CALCULADORA {
 	version BASICA {
 		double SUMA(double,double) = 1;
