@@ -6,7 +6,7 @@
 #include "calculadora.h"
 
 bool_t
-xdr_suma_1_argument (XDR *xdrs, suma_1_argument *objp)
+xdr_suma_2_argument (XDR *xdrs, suma_2_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
 		 return FALSE;
@@ -16,7 +16,7 @@ xdr_suma_1_argument (XDR *xdrs, suma_1_argument *objp)
 }
 
 bool_t
-xdr_resta_1_argument (XDR *xdrs, resta_1_argument *objp)
+xdr_resta_2_argument (XDR *xdrs, resta_2_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
 		 return FALSE;
@@ -26,7 +26,7 @@ xdr_resta_1_argument (XDR *xdrs, resta_1_argument *objp)
 }
 
 bool_t
-xdr_multiplicacion_1_argument (XDR *xdrs, multiplicacion_1_argument *objp)
+xdr_multiplicacion_2_argument (XDR *xdrs, multiplicacion_2_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
 		 return FALSE;
@@ -36,7 +36,7 @@ xdr_multiplicacion_1_argument (XDR *xdrs, multiplicacion_1_argument *objp)
 }
 
 bool_t
-xdr_division_1_argument (XDR *xdrs, division_1_argument *objp)
+xdr_division_2_argument (XDR *xdrs, division_2_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
 		 return FALSE;
@@ -46,7 +46,7 @@ xdr_division_1_argument (XDR *xdrs, division_1_argument *objp)
 }
 
 bool_t
-xdr_modulo_1_argument (XDR *xdrs, modulo_1_argument *objp)
+xdr_modulo_2_argument (XDR *xdrs, modulo_2_argument *objp)
 {
 	 if (!xdr_int (xdrs, &objp->arg1))
 		 return FALSE;
@@ -56,7 +56,7 @@ xdr_modulo_1_argument (XDR *xdrs, modulo_1_argument *objp)
 }
 
 bool_t
-xdr_potencia_1_argument (XDR *xdrs, potencia_1_argument *objp)
+xdr_potencia_2_argument (XDR *xdrs, potencia_2_argument *objp)
 {
 	 if (!xdr_double (xdrs, &objp->arg1))
 		 return FALSE;
@@ -66,7 +66,7 @@ xdr_potencia_1_argument (XDR *xdrs, potencia_1_argument *objp)
 }
 
 bool_t
-xdr_raiz_1_argument (XDR *xdrs, raiz_1_argument *objp)
+xdr_raiz_2_argument (XDR *xdrs, raiz_2_argument *objp)
 {
 	 if (!xdr_int (xdrs, &objp->arg1))
 		 return FALSE;

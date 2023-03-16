@@ -14,149 +14,149 @@ extern "C" {
 #endif
 
 
-struct suma_1_argument {
+struct suma_2_argument {
 	double arg1;
 	double arg2;
 };
-typedef struct suma_1_argument suma_1_argument;
+typedef struct suma_2_argument suma_2_argument;
 
-struct resta_1_argument {
+struct resta_2_argument {
 	double arg1;
 	double arg2;
 };
-typedef struct resta_1_argument resta_1_argument;
+typedef struct resta_2_argument resta_2_argument;
 
-struct multiplicacion_1_argument {
+struct multiplicacion_2_argument {
 	double arg1;
 	double arg2;
 };
-typedef struct multiplicacion_1_argument multiplicacion_1_argument;
+typedef struct multiplicacion_2_argument multiplicacion_2_argument;
 
-struct division_1_argument {
+struct division_2_argument {
 	double arg1;
 	double arg2;
 };
-typedef struct division_1_argument division_1_argument;
+typedef struct division_2_argument division_2_argument;
 
-struct modulo_1_argument {
+struct modulo_2_argument {
 	int arg1;
 	int arg2;
 };
-typedef struct modulo_1_argument modulo_1_argument;
+typedef struct modulo_2_argument modulo_2_argument;
 
-struct potencia_1_argument {
+struct potencia_2_argument {
 	double arg1;
 	int arg2;
 };
-typedef struct potencia_1_argument potencia_1_argument;
+typedef struct potencia_2_argument potencia_2_argument;
 
-struct raiz_1_argument {
+struct raiz_2_argument {
 	int arg1;
 	double arg2;
 };
-typedef struct raiz_1_argument raiz_1_argument;
+typedef struct raiz_2_argument raiz_2_argument;
 
-#define CALCULADORA 0x20000155
-#define BASICA 1
+#define CALCULADORA 0x20000002
+#define BASICA 2
 
 #if defined(__STDC__) || defined(__cplusplus)
 #define SUMA 1
-extern  double * suma_1(double , double , CLIENT *);
-extern  double * suma_1_svc(double , double , struct svc_req *);
+extern  double * suma_2(double , double , CLIENT *);
+extern  double * suma_2_svc(double , double , struct svc_req *);
 #define RESTA 2
-extern  double * resta_1(double , double , CLIENT *);
-extern  double * resta_1_svc(double , double , struct svc_req *);
+extern  double * resta_2(double , double , CLIENT *);
+extern  double * resta_2_svc(double , double , struct svc_req *);
 #define MULTIPLICACION 3
-extern  double * multiplicacion_1(double , double , CLIENT *);
-extern  double * multiplicacion_1_svc(double , double , struct svc_req *);
+extern  double * multiplicacion_2(double , double , CLIENT *);
+extern  double * multiplicacion_2_svc(double , double , struct svc_req *);
 #define DIVISION 4
-extern  double * division_1(double , double , CLIENT *);
-extern  double * division_1_svc(double , double , struct svc_req *);
+extern  double * division_2(double , double , CLIENT *);
+extern  double * division_2_svc(double , double , struct svc_req *);
 #define MODULO 5
-extern  int * modulo_1(int , int , CLIENT *);
-extern  int * modulo_1_svc(int , int , struct svc_req *);
+extern  int * modulo_2(int , int , CLIENT *);
+extern  int * modulo_2_svc(int , int , struct svc_req *);
 #define POTENCIA 6
-extern  double * potencia_1(double , int , CLIENT *);
-extern  double * potencia_1_svc(double , int , struct svc_req *);
+extern  double * potencia_2(double , int , CLIENT *);
+extern  double * potencia_2_svc(double , int , struct svc_req *);
 #define RAIZ 7
-extern  double * raiz_1(int , double , CLIENT *);
-extern  double * raiz_1_svc(int , double , struct svc_req *);
+extern  double * raiz_2(int , double , CLIENT *);
+extern  double * raiz_2_svc(int , double , struct svc_req *);
 #define LOG_NAT 8
-extern  double * log_nat_1(double , CLIENT *);
-extern  double * log_nat_1_svc(double , struct svc_req *);
+extern  double * log_nat_2(double , CLIENT *);
+extern  double * log_nat_2_svc(double , struct svc_req *);
 #define LOG10 9
-extern  double * log10_1(double , CLIENT *);
-extern  double * log10_1_svc(double , struct svc_req *);
+extern  double * log10_2(double , CLIENT *);
+extern  double * log10_2_svc(double , struct svc_req *);
 #define SENO 10
-extern  double * seno_1(double , CLIENT *);
-extern  double * seno_1_svc(double , struct svc_req *);
+extern  double * seno_2(double , CLIENT *);
+extern  double * seno_2_svc(double , struct svc_req *);
 #define COSENO 11
-extern  double * coseno_1(double , CLIENT *);
-extern  double * coseno_1_svc(double , struct svc_req *);
+extern  double * coseno_2(double , CLIENT *);
+extern  double * coseno_2_svc(double , struct svc_req *);
 #define TANGENTE 12
-extern  double * tangente_1(double , CLIENT *);
-extern  double * tangente_1_svc(double , struct svc_req *);
-extern int calculadora_1_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
+extern  double * tangente_2(double , CLIENT *);
+extern  double * tangente_2_svc(double , struct svc_req *);
+extern int calculadora_2_freeresult (SVCXPRT *, xdrproc_t, caddr_t);
 
 #else /* K&R C */
 #define SUMA 1
-extern  double * suma_1();
-extern  double * suma_1_svc();
+extern  double * suma_2();
+extern  double * suma_2_svc();
 #define RESTA 2
-extern  double * resta_1();
-extern  double * resta_1_svc();
+extern  double * resta_2();
+extern  double * resta_2_svc();
 #define MULTIPLICACION 3
-extern  double * multiplicacion_1();
-extern  double * multiplicacion_1_svc();
+extern  double * multiplicacion_2();
+extern  double * multiplicacion_2_svc();
 #define DIVISION 4
-extern  double * division_1();
-extern  double * division_1_svc();
+extern  double * division_2();
+extern  double * division_2_svc();
 #define MODULO 5
-extern  int * modulo_1();
-extern  int * modulo_1_svc();
+extern  int * modulo_2();
+extern  int * modulo_2_svc();
 #define POTENCIA 6
-extern  double * potencia_1();
-extern  double * potencia_1_svc();
+extern  double * potencia_2();
+extern  double * potencia_2_svc();
 #define RAIZ 7
-extern  double * raiz_1();
-extern  double * raiz_1_svc();
+extern  double * raiz_2();
+extern  double * raiz_2_svc();
 #define LOG_NAT 8
-extern  double * log_nat_1();
-extern  double * log_nat_1_svc();
+extern  double * log_nat_2();
+extern  double * log_nat_2_svc();
 #define LOG10 9
-extern  double * log10_1();
-extern  double * log10_1_svc();
+extern  double * log10_2();
+extern  double * log10_2_svc();
 #define SENO 10
-extern  double * seno_1();
-extern  double * seno_1_svc();
+extern  double * seno_2();
+extern  double * seno_2_svc();
 #define COSENO 11
-extern  double * coseno_1();
-extern  double * coseno_1_svc();
+extern  double * coseno_2();
+extern  double * coseno_2_svc();
 #define TANGENTE 12
-extern  double * tangente_1();
-extern  double * tangente_1_svc();
-extern int calculadora_1_freeresult ();
+extern  double * tangente_2();
+extern  double * tangente_2_svc();
+extern int calculadora_2_freeresult ();
 #endif /* K&R C */
 
 /* the xdr functions */
 
 #if defined(__STDC__) || defined(__cplusplus)
-extern  bool_t xdr_suma_1_argument (XDR *, suma_1_argument*);
-extern  bool_t xdr_resta_1_argument (XDR *, resta_1_argument*);
-extern  bool_t xdr_multiplicacion_1_argument (XDR *, multiplicacion_1_argument*);
-extern  bool_t xdr_division_1_argument (XDR *, division_1_argument*);
-extern  bool_t xdr_modulo_1_argument (XDR *, modulo_1_argument*);
-extern  bool_t xdr_potencia_1_argument (XDR *, potencia_1_argument*);
-extern  bool_t xdr_raiz_1_argument (XDR *, raiz_1_argument*);
+extern  bool_t xdr_suma_2_argument (XDR *, suma_2_argument*);
+extern  bool_t xdr_resta_2_argument (XDR *, resta_2_argument*);
+extern  bool_t xdr_multiplicacion_2_argument (XDR *, multiplicacion_2_argument*);
+extern  bool_t xdr_division_2_argument (XDR *, division_2_argument*);
+extern  bool_t xdr_modulo_2_argument (XDR *, modulo_2_argument*);
+extern  bool_t xdr_potencia_2_argument (XDR *, potencia_2_argument*);
+extern  bool_t xdr_raiz_2_argument (XDR *, raiz_2_argument*);
 
 #else /* K&R C */
-extern bool_t xdr_suma_1_argument ();
-extern bool_t xdr_resta_1_argument ();
-extern bool_t xdr_multiplicacion_1_argument ();
-extern bool_t xdr_division_1_argument ();
-extern bool_t xdr_modulo_1_argument ();
-extern bool_t xdr_potencia_1_argument ();
-extern bool_t xdr_raiz_1_argument ();
+extern bool_t xdr_suma_2_argument ();
+extern bool_t xdr_resta_2_argument ();
+extern bool_t xdr_multiplicacion_2_argument ();
+extern bool_t xdr_division_2_argument ();
+extern bool_t xdr_modulo_2_argument ();
+extern bool_t xdr_potencia_2_argument ();
+extern bool_t xdr_raiz_2_argument ();
 
 #endif /* K&R C */
 

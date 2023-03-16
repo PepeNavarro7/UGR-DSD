@@ -5,43 +5,43 @@
  */
 
 #include "calculadora.h"
+#include <math.h>
 
+int identifica (char* operacion){
+	if (strcmp(operacion, "+") == 0){
+		return 0;
+	} else if(strcmp(operacion,"-") == 0){
+		return 1;
+	}else if(strcmp(operacion,"x") == 0){
+		return 2;
+	}else if(strcmp(operacion,"/") == 0){
+		return 3;
+	}else if(strcmp(operacion,"mod") == 0){ 
+		return 4;
+	}else if(strcmp(operacion,"pow") == 0){
+		return 5;
+	}else if(strcmp(operacion,"root") == 0){
+		return 6;
+	}else if(strcmp(operacion,"ln") == 0){
+		return 7;
+	}else if(strcmp(operacion,"log10") == 0){
+		return 8;
+	}else if(strcmp(operacion,"sin") == 0){
+		return 9;
+	}else if(strcmp(operacion,"cos") == 0){
+		return 10;
+	}else if(strcmp(operacion,"tan") == 0){
+		return 11;
+	} else {
+		return -1; // error en la identificacion
+	}
+}
 
-void
-calculadora_1(char *host)
-{
+void calculadora_2(char *host, int operacion, double x, double y){
 	CLIENT *clnt;
-	double  *result_1;
-	double suma_1_arg1;
-	double suma_1_arg2;
-	double  *result_2;
-	double resta_1_arg1;
-	double resta_1_arg2;
-	double  *result_3;
-	double multiplicacion_1_arg1;
-	double multiplicacion_1_arg2;
-	double  *result_4;
-	double division_1_arg1;
-	double division_1_arg2;
-	int  *result_5;
-	int modulo_1_arg1;
-	int modulo_1_arg2;
-	double  *result_6;
-	double potencia_1_arg1;
-	int potencia_1_arg2;
-	double  *result_7;
-	int raiz_1_arg1;
-	double raiz_1_arg2;
-	double  *result_8;
-	double log_nat_1_arg1;
-	double  *result_9;
-	double log10_1_arg1;
-	double  *result_10;
-	double seno_1_arg1;
-	double  *result_11;
-	double coseno_1_arg1;
-	double  *result_12;
-	double tangente_1_arg1;
+	double  *result_double;
+	int  *result_int, xi, yi;
+	double gi = x * M_PI / 180; // Transformo de grados a radianes, para el servidor
 
 #ifndef	DEBUG
 	clnt = clnt_create (host, CALCULADORA, BASICA, "udp");
@@ -51,70 +51,96 @@ calculadora_1(char *host)
 	}
 #endif	/* DEBUG */
 
-	result_1 = suma_1(suma_1_arg1, suma_1_arg2, clnt);
-	if (result_1 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
+	printf("Resultado -> ");
+	switch(operacion){
+		case 0: result_double = suma_2(x, y, clnt); 
+		printf("%f + %f = %f\n",x,y,*result_double);
+		break;
+		case 1: result_double = resta_2(x, y, clnt); 
+		printf("%f - %f = %f\n",x,y,*result_double);
+		break;
+		case 2: result_double = multiplicacion_2(x, y, clnt); 
+		printf("%f x %f = %f\n",x,y,*result_double);
+		break;
+		case 3: if(y==0){
+			printf("Math error\n");
+		}else{
+			result_double = division_2(x, y, clnt); 
+			printf("%f / %f = %f\n",x,y,*result_double);
+		} break;
+		case 4: xi = x, yi = y;
+		result_int = modulo_2(xi, yi, clnt); 
+		printf("%i %% %i = %i\n",xi,yi,*result_int);
+		break;
+		case 5: yi = y;
+		result_double = potencia_2(x, y, clnt); 
+		printf("%f elevado a %i = %f\n",x,yi,*result_double);
+		break;
+		case 6: xi = x;
+		result_double = raiz_2(x, y, clnt); 
+		switch(xi){
+			case 2: printf("raiz cuadrada de %f = %f\n",y,*result_double); break;
+			case 3: printf("raiz cubica de %f = %f\n",y,*result_double); break;
+			default: printf("raiz %i-esima de %f = %f\n",xi,y,*result_double); break;
+		} break;
+		case 7: result_double = log_nat_2(x, clnt); 
+		printf("ln de %f = %f\n",x,*result_double);
+		break;
+		case 8: result_double = log10_2(x, clnt); 
+		printf("log10 de %f = %f\n",x,*result_double);
+		break;
+		case 9: result_double = seno_2(gi, clnt); 
+		printf("seno de %fº = %f\n",x,*result_double);
+		break;
+		case 10: result_double = coseno_2(gi, clnt); 
+		printf("coseno de %fº = %f\n",x,*result_double);
+		break;
+		case 11: result_double = tangente_2(gi, clnt); 
+		printf("tangente de %fº = %f\n",x,*result_double);
+		break;
+		default: printf("Error en la identificacion de la operacion.\n");
+		break;
 	}
-	result_2 = resta_1(resta_1_arg1, resta_1_arg2, clnt);
-	if (result_2 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_3 = multiplicacion_1(multiplicacion_1_arg1, multiplicacion_1_arg2, clnt);
-	if (result_3 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_4 = division_1(division_1_arg1, division_1_arg2, clnt);
-	if (result_4 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_5 = modulo_1(modulo_1_arg1, modulo_1_arg2, clnt);
-	if (result_5 == (int *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_6 = potencia_1(potencia_1_arg1, potencia_1_arg2, clnt);
-	if (result_6 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_7 = raiz_1(raiz_1_arg1, raiz_1_arg2, clnt);
-	if (result_7 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_8 = log_nat_1(log_nat_1_arg1, clnt);
-	if (result_8 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_9 = log10_1(log10_1_arg1, clnt);
-	if (result_9 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_10 = seno_1(seno_1_arg1, clnt);
-	if (result_10 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_11 = coseno_1(coseno_1_arg1, clnt);
-	if (result_11 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
-	result_12 = tangente_1(tangente_1_arg1, clnt);
-	if (result_12 == (double *) NULL) {
-		clnt_perror (clnt, "call failed");
-	}
+
 #ifndef	DEBUG
 	clnt_destroy (clnt);
 #endif	 /* DEBUG */
 }
 
+void instrucciones(char* prog){
+	printf("Uso: %s localhost operacion\n",prog);
+	printf("f = flotantes, i = enteros, g = grados\n");
+	printf("Operaciones basicas: f +-x/ f\n");
+	printf("Modulo: i mod i\n");
+	printf("Potencia y raiz: f pow i , i root f\n");
+	printf("Logaritmos: ln f , l10 f");
+	printf("Geometricas: sin f , cos f , tan f\n");
+}
 
-int
-main (int argc, char *argv[])
-{
+int main (int argc, char *argv[]){
 	char *host;
 
-	if (argc < 2) {
-		printf ("usage: %s server_host\n", argv[0]);
+	if (argc <= 3 || argc >= 6) {
+		instrucciones(argv[0]);
 		exit (1);
 	}
 	host = argv[1];
-	calculadora_1 (host);
+	int operacion;
+	double x=0.0, y=0.0;
+	switch (argc){
+		case 4: 
+		operacion = identifica(argv[2]);
+		x = strtod(argv[3],NULL);
+		printf("Operacion --> %s %f\n",argv[2],x); break;
+		case 5: 
+		operacion = identifica(argv[3]);
+		x = strtod(argv[2],NULL);
+		y = strtod(argv[4],NULL);
+		printf("Operacion -> %f %s %f\n",x,argv[3],y); break;
+		break;
+		default: printf("Error.\n");
+	}
+	//printf("Operacion -> %f %i %f\n",x,operacion,y);
+	calculadora_2 (host,operacion,x,y);
 exit (0);
 }

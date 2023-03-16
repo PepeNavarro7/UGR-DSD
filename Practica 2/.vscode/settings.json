@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "rpc.h": "c",
-        "calculadora.h": "c"
-    }
+        "calculadora.h": "c",
+        "math.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "disabled"
 }

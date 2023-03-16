@@ -15,14 +15,13 @@ SOURCES.x = calculadora.x
 TARGETS_SVC.c = calculadora_svc.c calculadora_server.c calculadora_xdr.c 
 TARGETS_CLNT.c = calculadora_clnt.c calculadora_client.c calculadora_xdr.c 
 TARGETS = calculadora.h calculadora_xdr.c calculadora_clnt.c calculadora_svc.c calculadora_client.c calculadora_server.c
-TARGETS_CLEAN = calculadora.h calculadora_xdr.c calculadora_clnt.c calculadora_svc.c
 
 OBJECTS_CLNT = $(SOURCES_CLNT.c:%.c=%.o) $(TARGETS_CLNT.c:%.c=%.o)
 OBJECTS_SVC = $(SOURCES_SVC.c:%.c=%.o) $(TARGETS_SVC.c:%.c=%.o)
 # Compiler flags 
 
-CFLAGS += -g -I /usr/include/tirpc/
-LDLIBS += -lnsl -ltirpc 
+CFLAGS += -g -I /usr/include/tirpc/ #Añadimos el path a la biblioteca RPC
+LDLIBS += -lnsl -ltirpc -lm
 RPCGENFLAGS = 
 
 # Targets 
@@ -43,7 +42,7 @@ $(SERVER) : $(OBJECTS_SVC)
 	$(LINK.c) -o $(SERVER) $(OBJECTS_SVC) $(LDLIBS)
 
 clean:
-	$(RM) core $(TARGETS_CLEAN) $(OBJECTS_CLNT) $(OBJECTS_SVC)
+	$(RM) core $(OBJECTS_CLNT) $(OBJECTS_SVC)
 mrproper:
-	$(RM) core $(TARGETS_CLEAN) $(OBJECTS_CLNT) $(OBJECTS_SVC) $(CLIENT) $(SERVER)
+	$(RM) core $(OBJECTS_CLNT) $(OBJECTS_SVC) $(CLIENT) $(SERVER)
 

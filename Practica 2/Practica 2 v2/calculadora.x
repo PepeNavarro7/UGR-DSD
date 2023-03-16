@@ -1,6 +1,4 @@
-/* 
-4 operaciones, + - x / % ^ root ln l10 sin cos tan
-*/
+/* 4 operaciones, + - x / mod pow root ln l10 sin cos tan */
 program CALCULADORA {
 	version BASICA {
 		double SUMA (double,double) = 1;
@@ -15,5 +13,5 @@ program CALCULADORA {
 		double SENO (double) = 10;
 		double COSENO (double) = 11;
 		double TANGENTE (double) = 12;
-	}=1;
-} = 0x20000155;
+	}=2;
+} = 0x20000002;

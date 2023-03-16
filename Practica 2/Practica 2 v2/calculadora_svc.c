@@ -17,93 +17,93 @@
 #endif
 
 static double *
-_suma_1 (suma_1_argument *argp, struct svc_req *rqstp)
+_suma_2 (suma_2_argument *argp, struct svc_req *rqstp)
 {
-	return (suma_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (suma_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_resta_1 (resta_1_argument *argp, struct svc_req *rqstp)
+_resta_2 (resta_2_argument *argp, struct svc_req *rqstp)
 {
-	return (resta_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (resta_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_multiplicacion_1 (multiplicacion_1_argument *argp, struct svc_req *rqstp)
+_multiplicacion_2 (multiplicacion_2_argument *argp, struct svc_req *rqstp)
 {
-	return (multiplicacion_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (multiplicacion_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_division_1 (division_1_argument *argp, struct svc_req *rqstp)
+_division_2 (division_2_argument *argp, struct svc_req *rqstp)
 {
-	return (division_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (division_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static int *
-_modulo_1 (modulo_1_argument *argp, struct svc_req *rqstp)
+_modulo_2 (modulo_2_argument *argp, struct svc_req *rqstp)
 {
-	return (modulo_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (modulo_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_potencia_1 (potencia_1_argument *argp, struct svc_req *rqstp)
+_potencia_2 (potencia_2_argument *argp, struct svc_req *rqstp)
 {
-	return (potencia_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (potencia_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_raiz_1 (raiz_1_argument *argp, struct svc_req *rqstp)
+_raiz_2 (raiz_2_argument *argp, struct svc_req *rqstp)
 {
-	return (raiz_1_svc(argp->arg1, argp->arg2, rqstp));
+	return (raiz_2_svc(argp->arg1, argp->arg2, rqstp));
 }
 
 static double *
-_log_nat_1 (double  *argp, struct svc_req *rqstp)
+_log_nat_2 (double  *argp, struct svc_req *rqstp)
 {
-	return (log_nat_1_svc(*argp, rqstp));
+	return (log_nat_2_svc(*argp, rqstp));
 }
 
 static double *
-_log10_1 (double  *argp, struct svc_req *rqstp)
+_log10_2 (double  *argp, struct svc_req *rqstp)
 {
-	return (log10_1_svc(*argp, rqstp));
+	return (log10_2_svc(*argp, rqstp));
 }
 
 static double *
-_seno_1 (double  *argp, struct svc_req *rqstp)
+_seno_2 (double  *argp, struct svc_req *rqstp)
 {
-	return (seno_1_svc(*argp, rqstp));
+	return (seno_2_svc(*argp, rqstp));
 }
 
 static double *
-_coseno_1 (double  *argp, struct svc_req *rqstp)
+_coseno_2 (double  *argp, struct svc_req *rqstp)
 {
-	return (coseno_1_svc(*argp, rqstp));
+	return (coseno_2_svc(*argp, rqstp));
 }
 
 static double *
-_tangente_1 (double  *argp, struct svc_req *rqstp)
+_tangente_2 (double  *argp, struct svc_req *rqstp)
 {
-	return (tangente_1_svc(*argp, rqstp));
+	return (tangente_2_svc(*argp, rqstp));
 }
 
 static void
-calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
+calculadora_2(struct svc_req *rqstp, register SVCXPRT *transp)
 {
 	union {
-		suma_1_argument suma_1_arg;
-		resta_1_argument resta_1_arg;
-		multiplicacion_1_argument multiplicacion_1_arg;
-		division_1_argument division_1_arg;
-		modulo_1_argument modulo_1_arg;
-		potencia_1_argument potencia_1_arg;
-		raiz_1_argument raiz_1_arg;
-		double log_nat_1_arg;
-		double log10_1_arg;
-		double seno_1_arg;
-		double coseno_1_arg;
-		double tangente_1_arg;
+		suma_2_argument suma_2_arg;
+		resta_2_argument resta_2_arg;
+		multiplicacion_2_argument multiplicacion_2_arg;
+		division_2_argument division_2_arg;
+		modulo_2_argument modulo_2_arg;
+		potencia_2_argument potencia_2_arg;
+		raiz_2_argument raiz_2_arg;
+		double log_nat_2_arg;
+		double log10_2_arg;
+		double seno_2_arg;
+		double coseno_2_arg;
+		double tangente_2_arg;
 	} argument;
 	char *result;
 	xdrproc_t _xdr_argument, _xdr_result;
@@ -115,75 +115,75 @@ calculadora_1(struct svc_req *rqstp, register SVCXPRT *transp)
 		return;
 
 	case SUMA:
-		_xdr_argument = (xdrproc_t) xdr_suma_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_suma_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _suma_1;
+		local = (char *(*)(char *, struct svc_req *)) _suma_2;
 		break;
 
 	case RESTA:
-		_xdr_argument = (xdrproc_t) xdr_resta_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_resta_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _resta_1;
+		local = (char *(*)(char *, struct svc_req *)) _resta_2;
 		break;
 
 	case MULTIPLICACION:
-		_xdr_argument = (xdrproc_t) xdr_multiplicacion_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_multiplicacion_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _multiplicacion_1;
+		local = (char *(*)(char *, struct svc_req *)) _multiplicacion_2;
 		break;
 
 	case DIVISION:
-		_xdr_argument = (xdrproc_t) xdr_division_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_division_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _division_1;
+		local = (char *(*)(char *, struct svc_req *)) _division_2;
 		break;
 
 	case MODULO:
-		_xdr_argument = (xdrproc_t) xdr_modulo_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_modulo_2_argument;
 		_xdr_result = (xdrproc_t) xdr_int;
-		local = (char *(*)(char *, struct svc_req *)) _modulo_1;
+		local = (char *(*)(char *, struct svc_req *)) _modulo_2;
 		break;
 
 	case POTENCIA:
-		_xdr_argument = (xdrproc_t) xdr_potencia_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_potencia_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _potencia_1;
+		local = (char *(*)(char *, struct svc_req *)) _potencia_2;
 		break;
 
 	case RAIZ:
-		_xdr_argument = (xdrproc_t) xdr_raiz_1_argument;
+		_xdr_argument = (xdrproc_t) xdr_raiz_2_argument;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _raiz_1;
+		local = (char *(*)(char *, struct svc_req *)) _raiz_2;
 		break;
 
 	case LOG_NAT:
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _log_nat_1;
+		local = (char *(*)(char *, struct svc_req *)) _log_nat_2;
 		break;
 
 	case LOG10:
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _log10_1;
+		local = (char *(*)(char *, struct svc_req *)) _log10_2;
 		break;
 
 	case SENO:
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _seno_1;
+		local = (char *(*)(char *, struct svc_req *)) _seno_2;
 		break;
 
 	case COSENO:
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _coseno_1;
+		local = (char *(*)(char *, struct svc_req *)) _coseno_2;
 		break;
 
 	case TANGENTE:
 		_xdr_argument = (xdrproc_t) xdr_double;
 		_xdr_result = (xdrproc_t) xdr_double;
-		local = (char *(*)(char *, struct svc_req *)) _tangente_1;
+		local = (char *(*)(char *, struct svc_req *)) _tangente_2;
 		break;
 
 	default:
@@ -218,7 +218,7 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create udp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, CALCULADORA, BASICA, calculadora_1, IPPROTO_UDP)) {
+	if (!svc_register(transp, CALCULADORA, BASICA, calculadora_2, IPPROTO_UDP)) {
 		fprintf (stderr, "%s", "unable to register (CALCULADORA, BASICA, udp).");
 		exit(1);
 	}
@@ -228,7 +228,7 @@ main (int argc, char **argv)
 		fprintf (stderr, "%s", "cannot create tcp service.");
 		exit(1);
 	}
-	if (!svc_register(transp, CALCULADORA, BASICA, calculadora_1, IPPROTO_TCP)) {
+	if (!svc_register(transp, CALCULADORA, BASICA, calculadora_2, IPPROTO_TCP)) {
 		fprintf (stderr, "%s", "unable to register (CALCULADORA, BASICA, tcp).");
 		exit(1);
 	}

@@ -10,15 +10,15 @@
 static struct timeval TIMEOUT = { 25, 0 };
 
 double *
-suma_1(double arg1, double arg2,  CLIENT *clnt)
+suma_2(double arg1, double arg2,  CLIENT *clnt)
 {
-	suma_1_argument arg;
+	suma_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, SUMA, (xdrproc_t) xdr_suma_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, SUMA, (xdrproc_t) xdr_suma_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -27,15 +27,15 @@ suma_1(double arg1, double arg2,  CLIENT *clnt)
 }
 
 double *
-resta_1(double arg1, double arg2,  CLIENT *clnt)
+resta_2(double arg1, double arg2,  CLIENT *clnt)
 {
-	resta_1_argument arg;
+	resta_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, RESTA, (xdrproc_t) xdr_resta_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, RESTA, (xdrproc_t) xdr_resta_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -44,15 +44,15 @@ resta_1(double arg1, double arg2,  CLIENT *clnt)
 }
 
 double *
-multiplicacion_1(double arg1, double arg2,  CLIENT *clnt)
+multiplicacion_2(double arg1, double arg2,  CLIENT *clnt)
 {
-	multiplicacion_1_argument arg;
+	multiplicacion_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, MULTIPLICACION, (xdrproc_t) xdr_multiplicacion_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, MULTIPLICACION, (xdrproc_t) xdr_multiplicacion_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -61,15 +61,15 @@ multiplicacion_1(double arg1, double arg2,  CLIENT *clnt)
 }
 
 double *
-division_1(double arg1, double arg2,  CLIENT *clnt)
+division_2(double arg1, double arg2,  CLIENT *clnt)
 {
-	division_1_argument arg;
+	division_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, DIVISION, (xdrproc_t) xdr_division_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, DIVISION, (xdrproc_t) xdr_division_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -78,15 +78,15 @@ division_1(double arg1, double arg2,  CLIENT *clnt)
 }
 
 int *
-modulo_1(int arg1, int arg2,  CLIENT *clnt)
+modulo_2(int arg1, int arg2,  CLIENT *clnt)
 {
-	modulo_1_argument arg;
+	modulo_2_argument arg;
 	static int clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, MODULO, (xdrproc_t) xdr_modulo_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, MODULO, (xdrproc_t) xdr_modulo_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_int, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -95,15 +95,15 @@ modulo_1(int arg1, int arg2,  CLIENT *clnt)
 }
 
 double *
-potencia_1(double arg1, int arg2,  CLIENT *clnt)
+potencia_2(double arg1, int arg2,  CLIENT *clnt)
 {
-	potencia_1_argument arg;
+	potencia_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, POTENCIA, (xdrproc_t) xdr_potencia_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, POTENCIA, (xdrproc_t) xdr_potencia_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -112,15 +112,15 @@ potencia_1(double arg1, int arg2,  CLIENT *clnt)
 }
 
 double *
-raiz_1(int arg1, double arg2,  CLIENT *clnt)
+raiz_2(int arg1, double arg2,  CLIENT *clnt)
 {
-	raiz_1_argument arg;
+	raiz_2_argument arg;
 	static double clnt_res;
 
 	memset((char *)&clnt_res, 0, sizeof(clnt_res));
 	arg.arg1 = arg1;
 	arg.arg2 = arg2;
-	if (clnt_call (clnt, RAIZ, (xdrproc_t) xdr_raiz_1_argument, (caddr_t) &arg,
+	if (clnt_call (clnt, RAIZ, (xdrproc_t) xdr_raiz_2_argument, (caddr_t) &arg,
 		(xdrproc_t) xdr_double, (caddr_t) &clnt_res,
 		TIMEOUT) != RPC_SUCCESS) {
 		return (NULL);
@@ -129,7 +129,7 @@ raiz_1(int arg1, double arg2,  CLIENT *clnt)
 }
 
 double *
-log_nat_1(double arg1,  CLIENT *clnt)
+log_nat_2(double arg1,  CLIENT *clnt)
 {
 	static double clnt_res;
 
@@ -144,7 +144,7 @@ log_nat_1(double arg1,  CLIENT *clnt)
 }
 
 double *
-log10_1(double arg1,  CLIENT *clnt)
+log10_2(double arg1,  CLIENT *clnt)
 {
 	static double clnt_res;
 
@@ -159,7 +159,7 @@ log10_1(double arg1,  CLIENT *clnt)
 }
 
 double *
-seno_1(double arg1,  CLIENT *clnt)
+seno_2(double arg1,  CLIENT *clnt)
 {
 	static double clnt_res;
 
@@ -174,7 +174,7 @@ seno_1(double arg1,  CLIENT *clnt)
 }
 
 double *
-coseno_1(double arg1,  CLIENT *clnt)
+coseno_2(double arg1,  CLIENT *clnt)
 {
 	static double clnt_res;
 
@@ -189,7 +189,7 @@ coseno_1(double arg1,  CLIENT *clnt)
 }
 
 double *
-tangente_1(double arg1,  CLIENT *clnt)
+tangente_2(double arg1,  CLIENT *clnt)
 {
 	static double clnt_res;
 
