@@ -1,4 +1,9 @@
-/* 4 operaciones, + - x / mod pow root ln l10 sin cos tan */
+/* 12 operaciones
+Operaciones basicas -> + - x / 
+Operaciones con enteros -> mod pow root 
+Logaritmos -> ln log10 
+Trigonometricas -> sen cos tan 
+*/
 program CALCULADORA {
 	version BASICA {
 		double SUMA (double,double) = 1;

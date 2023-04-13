@@ -20,8 +20,8 @@ OBJECTS_CLNT = $(SOURCES_CLNT.c:%.c=%.o) $(TARGETS_CLNT.c:%.c=%.o)
 OBJECTS_SVC = $(SOURCES_SVC.c:%.c=%.o) $(TARGETS_SVC.c:%.c=%.o)
 # Compiler flags 
 
-CFLAGS += -g -I /usr/include/tirpc/ #Añadimos el path a la biblioteca RPC
-LDLIBS += -lnsl -ltirpc -lm
+CFLAGS += -g -I /usr/include/tirpc/ # Añadimos el path a la biblioteca RPC
+LDLIBS += -lnsl -ltirpc -lm # Tambien añadimos la biblioteca de cmath
 RPCGENFLAGS = 
 
 # Targets 
@@ -29,7 +29,7 @@ RPCGENFLAGS =
 all : $(CLIENT) $(SERVER)
 
 $(TARGETS) : $(SOURCES.x) 
-	rpcgen $(RPCGENFLAGS) $(SOURCES.x)
+#rpcgen $(RPCGENFLAGS) $(SOURCES.x)
 
 $(OBJECTS_CLNT) : $(SOURCES_CLNT.c) $(SOURCES_CLNT.h) $(TARGETS_CLNT.c) 
 
