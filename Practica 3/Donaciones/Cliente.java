@@ -38,7 +38,8 @@ public class Cliente {
             Contador_I local2 = (Contador_I) registry.lookup(ID2);
             Random random = new Random();
             // La asignacion del servidor con el que contacta el cliente es aleatoria
-            Contador_I servidor = random.nextInt(2)==0?local1:local2;
+            int aux = random.nextInt(2); System.out.print(aux+1);
+            Contador_I servidor = aux==0?local1:local2;
             Cliente cliente = new Cliente(servidor);
             cliente.loop();
         } catch (Exception e) {

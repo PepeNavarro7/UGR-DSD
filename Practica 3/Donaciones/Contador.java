@@ -76,18 +76,18 @@ public class Contador extends UnicastRemoteObject implements Contador_I, Comunic
         System.out.println(this.ID+"-> Subtotal de "+subtotal);
         return subtotal;
     }
+    public int numClientes() throws RemoteException{
+        return this.recuento_local.keySet().size();
+    }
     public boolean tieneCliente(String cliente) throws RemoteException{
         return recuento_local.containsKey(cliente);
     }
-    public int numClientes() throws RemoteException{
-        return this.recuento_local.keySet().size();
+    public String getID() throws RemoteException{
+        return this.ID;
     }
     public void registra(String cliente) throws RemoteException{
         this.recuento_local.put(cliente,0);
         System.out.println(this.ID+"-> "+cliente+" se ha registrado en este servidor.");
-    }
-    public String getID() throws RemoteException{
-        return this.ID;
     }
     public void dona(String cliente, int cantidad) throws RemoteException{
         int aux = recuento_local.get(cliente);

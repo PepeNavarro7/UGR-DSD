@@ -20,8 +20,7 @@ public class Servidor{
             registry.rebind(ID1, contador1);
             registry.rebind(ID2, contador2);
 
-            // Enviamos a cada servidor una referencia al otro, 
-            // pero casteándola a la interfaz correcta
+            // Enviamos a cada servidor una referencia al otro, pero casteándola a la interfaz correcta
             Comunicador_I com1 = (Comunicador_I)contador1, 
                 com2 = (Comunicador_I)contador2;
             com1.setPareja(ID2);
