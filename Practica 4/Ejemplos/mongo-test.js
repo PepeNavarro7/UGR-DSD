@@ -46,27 +46,24 @@ var httpServer = http.createServer(
 MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, function(err, db) {
 	httpServer.listen(8080);
 	var io = socketio(httpServer);
-
 	var dbo = db.db("pruebaBaseDatos");
-	//var collection = dbo.collection("test");
-
+	
 	// En cada ejecucion del servidor, borramos la coleccion para empezar de cero
 	dbo.collection("test").drop(function(err, delOK) { if (err) throw err; });
-	dbo.createCollection("test", function(err, collection){
-    	io.sockets.on('connection',
-			function(client) {
-				client.emit('my-address', {host:client.request.connection.remoteAddress, port:client.request.connection.remotePort});
-				client.on('poner', function (data) {
-					collection.insertOne(data, {safe:true}, function(err, result) {});
-				});
-				client.on('obtener', function (data) {
-					collection.find(data).toArray(function(err, results){
-						client.emit('obtener', results);
-					});
-				});
-			}
-		);
-    });
+	dbo.createCollection("test", function(err, collection){ if (err) throw err; });
+	var collection = dbo.collection("test");
+
+	io.sockets.on('connection', function(client) {
+		client.emit('my-address', {host:client.request.connection.remoteAddress, port:client.request.connection.remotePort});
+		client.on('poner', function (data) {
+			collection.insertOne(data, {safe:true}, function(err, result) {});
+		});
+		client.on('obtener', function (data) {
+			collection.find(data).toArray(function(err, results){
+				client.emit('obtener', results);
+			});
+		});
+	});
 });
 
 console.log("Servicio MongoDB iniciado");

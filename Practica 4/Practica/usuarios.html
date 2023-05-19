@@ -1,0 +1,111 @@
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<title>Usuarios</title>
+</head>
+<body>
+	<span id="mensaje_servicio"></span>
+	<div id="lista_usuarios"></div>
+	<div>
+		<h2>Estado de los sensores</h2>
+		<div>
+			<p>Datos actualizados a las </p>
+			<p id="timemark"></p>
+		</div>
+		<div>
+			<p>Temperatura</p>
+			<p id="temperatura"></p>
+		</div>
+		<div>
+			<p>Luminosidad</p>
+			<p id="luminosidad"></p>
+		</div>
+
+		<h2>Estado de los actuadores</h2>
+		<div>
+			<p>Aire acondicionado</p>
+			<p id="aire"></p>
+			<button onclick="changeAC()">Cambiar estado A/C</button>
+			<p>Persiana</p>
+			<p id="persiana"></p>
+			<button onclick="changePersiana()">Cambiar estado persiana</button>
+		</div>
+	</div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+	function mostrar_mensaje(msg){
+		var span_msg = document.getElementById('mensaje_servicio');
+		span_msg.innerHTML = msg;
+	}
+
+	// Actualiza la lista de usuarios (que no se muestra pero se almacena)
+	function actualizarLista(usuarios){
+		var listContainer = document.getElementById('lista_usuarios');
+		listContainer.innerHTML = '';
+		var listElement = document.createElement('ul');
+		listContainer.appendChild(listElement);
+		var num = usuarios.length;
+		for(var i=0; i<num; i++) {
+			var listItem = document.createElement('li');
+			listItem.innerHTML = usuarios[i].address+":"+usuarios[i].port;
+			listElement.appendChild(listItem);
+		}
+	}
+
+	var serviceURL = document.URL;
+	var socket = io.connect(serviceURL);
+
+	// En cada conexion o desconexión, el servidor hace un emit('all-connections'), que el cliente recibe
+	socket.on('all-connections', function(data) {
+		actualizarLista(data);
+	});
+
+	// Se actualizan persiana y aire con la info del servidor
+	socket.on('actualizarManuales', function(data){
+		console.log("Llega info de los manuales...");
+		console.log(data);
+		const aire = document.getElementById("aire");
+		const persiana = document.getElementById("persiana");
+		(data.aire == true) ? aire.innerText = "Encendido" : aire.innerText = "Apagado";
+		(data.persiana == true) ? persiana.innerText = "Subida" : persiana.innerText = "Bajada";
+	});
+
+	// Se actualiza la info de los sensores
+	socket.on('actualizarSensores', function(data){
+		console.log("Llega info de los sensores");
+		const temperatura = document.getElementById("temperatura");
+		const luminosidad = document.getElementById("luminosidad");
+		const fecha = document.getElementById("timemark");
+		temperatura.innerText = (data.temperatura) ? data.temperatura : "No definido todavia";
+		luminosidad.innerText = (data.luminosidad) ? data.luminosidad : "No definido todavia";
+		fecha.innerText = (data.timemark) ? data.timemark : "No definido todavia";
+	});
+
+	// Funciones de los dos botones
+	function changeAC(){
+		socket.emit('cambioAire', 0);
+	}
+	function changePersiana(){
+		socket.emit('cambioPersiana', 0);
+	}
+
+	// Si el servidor se cae
+	socket.on('disconnect', function() {
+		mostrar_mensaje('Houston tenemos un problema. Parece que el servidor ha caído.');
+	});
+
+	// Para mostrar mensajes
+	socket.on('alertas', function(data){
+		mostrar_mensaje(data);
+	});
+	socket.on('output-evt', function(data) {
+		mostrar_mensaje('Mensaje de servicio: '+data);
+	});
+</script>
+<style>
+	#lista_usuarios{
+		display: none;
+	}
+</style>
+</html>

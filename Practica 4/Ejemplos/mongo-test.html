@@ -32,6 +32,7 @@
 		socket.on('obtener', function(data) {
 			actualizarLista(data);
 		});
+		// En desconexion, se queda la pantalla blanca (porque no mestra conexiones)
 		socket.on('disconnect', function() {
 			actualizarLista({});
 		});

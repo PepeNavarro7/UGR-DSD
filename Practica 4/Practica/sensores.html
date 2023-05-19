@@ -1,0 +1,45 @@
+<!-- Sensores se conecta al socket y tiene su propia interfaz, desde la que sólo se mandan medidas nuevas-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sensores</title>
+</head>
+<body>
+    <h1>Recogida de datos de sensores</h1>
+    <div>
+        <label for="">Temperatura</label>
+        <input type="text" id="temperatura">
+    </div>
+    <div>
+        <label for="">Luminosidad</label>
+        <input type="text" id="luminosidad">
+    </div>
+    <button onclick="sendInfo()">Enviar información</button>    
+</body>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const serviceURL = 'localhost:8080';
+    const socket = io.connect(serviceURL);
+
+    socket.on('connect', function(){
+        console.log("Sensores conectados")
+    });
+
+    function sendInfo(){
+        const temp = document.getElementById("temperatura").value;
+        const lumi = document.getElementById("luminosidad").value;
+        const date = new Date();
+        const time = date.toString();
+        
+        socket.emit('cambioSensores', {temperatura:temp, luminosidad:lumi, timemark: time});
+        
+        document.getElementById("temperatura").value = "";
+        document.getElementById("luminosidad").value = "";
+    }
+
+</script>
+</html>
