@@ -40,37 +40,36 @@ httpServer.listen(8080);
 var io = socketio(httpServer);
 
 var allClients = new Array();
-io.sockets.on('connection',
-	function(client) {
-		allClients.push({address:client.request.connection.remoteAddress, port:client.request.connection.remotePort});
-		console.log('New connection from ' + client.request.connection.remoteAddress + ':' + client.request.connection.remotePort);
-		io.sockets.emit('all-connections', allClients);
-		client.on('output-evt', function (data) {
-			client.emit('output-evt', 'Hola Cliente!');
-		});
-		client.on('disconnect', function() {
-			console.log("El cliente "+client.request.connection.remoteAddress+" se va a desconectar");
-			console.log(allClients);
+io.sockets.on('connection',	function(client) {
+	allClients.push({address:client.request.connection.remoteAddress, port:client.request.connection.remotePort});
+	console.log('New connection from ' + client.request.connection.remoteAddress + ':' + client.request.connection.remotePort);
+	io.sockets.emit('all-connections', allClients);
+	client.on('output-evt', function (data) {
+		client.emit('output-evt', 'Hola Cliente!');
+	});
 
-			var index = -1;
-			for(var i = 0; i<allClients.length;i++){
-				//console.log("Hay "+allClients[i].port);
-				if(allClients[i].address == client.request.connection.remoteAddress
-					&& allClients[i].port == client.request.connection.remotePort){
-					index = i;
-				}			
-			}
+	client.on('disconnect', function() {
+		console.log("El cliente "+client.request.connection.remoteAddress+" se va a desconectar");
+		console.log(allClients);
 
-			if (index != -1) {
-				allClients.splice(index, 1);
-				io.sockets.emit('all-connections', allClients);
-			}else{
-				console.log("EL USUARIO NO SE HA ENCONTRADO!")
-			}
-			console.log('El usuario '+client.request.connection.remoteAddress+' se ha desconectado');
-		});
-	}
-);
+		var index = -1;
+		for(var i = 0; i<allClients.length;i++){
+			//console.log("Hay "+allClients[i].port);
+			if(allClients[i].address == client.request.connection.remoteAddress
+				&& allClients[i].port == client.request.connection.remotePort){
+				index = i;
+			}			
+		}
+
+		if (index != -1) {
+			allClients.splice(index, 1);
+			io.sockets.emit('all-connections', allClients);
+		}else{
+			console.log("EL USUARIO NO SE HA ENCONTRADO!")
+		}
+		console.log('El usuario '+client.request.connection.remoteAddress+' se ha desconectado');
+	});
+});
 
 console.log("Servicio Socket.io iniciado");
 

@@ -54,10 +54,13 @@ MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, 
 	var collection = dbo.collection("test");
 
 	io.sockets.on('connection', function(client) {
+		// Se le pasa al cliente su propia dirección
 		client.emit('my-address', {host:client.request.connection.remoteAddress, port:client.request.connection.remotePort});
+		// El cliente la manda de vuelta para que se guarde
 		client.on('poner', function (data) {
 			collection.insertOne(data, {safe:true}, function(err, result) {});
 		});
+		// El cliente pide que se le envíen los datos guardados
 		client.on('obtener', function (data) {
 			collection.find(data).toArray(function(err, results){
 				client.emit('obtener', results);
