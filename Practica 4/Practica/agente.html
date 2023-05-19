@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agente</title>
+</head>
+<body>
+	<p>Estado del agente</p>
+	<p id="estado_agente">Inactivo</p>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const TMin = 15, TMax = 35, LMin = 100, LMax = 600;
+
+        var serviceURL = 'localhost:8080';
+		var socket = io.connect(serviceURL);
+
+        socket.on('connect', function(params) {
+			document.getElementById("estado_agente").innerText = "Activo";
+        });
+
+		// El agente recibe datos de los sensores 
+        socket.on('actualizarSensores', function(data){
+            var string = "";
+			var cerrarPersiana = false;
+			if (data.temperatura < TMin) {
+				string += '¡Alerta! Temperatura baja\n';
+			}
+			if (data.temperatura > TMax) {
+				string +='¡Alerta! Temperatura alta\n';
+				cerrarPersiana = true;
+			}
+			if (data.luminosidad < LMin) {
+				string +='¡Alerta! Poca luz\n';
+			}
+			if (data.luminosidad > LMax) {
+				string +='¡Alerta! Mucha luz\n';
+				cerrarPersiana = true;
+			}
+            console.log(string);
+            socket.emit('enviaAlertas',{texto:string, cerrar:cerrarPersiana});
+        });
+		socket.on('disconnect', function(params) {
+			document.getElementById("estado_agente").innerText = "Inactivo";
+        });
+    </script>
+</body>
+</html>

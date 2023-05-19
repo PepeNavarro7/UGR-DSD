@@ -48,7 +48,7 @@ MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, 
 	var io = socketio(httpServer);
 
 	var allClients = new Array();
-	var persianaAbierta = false;
+	var persianaSubida = false;
 	var aireEncendido = false;
 	var datosSensores = ""; // ultimos datos de los sensores
 	
@@ -65,7 +65,7 @@ MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, 
 		
 		// Notificamos a los clientes nuevos las conexiones y el estado de persiana y aire 
 		io.sockets.emit('all-connections', allClients);
-		io.sockets.emit('actualizarManuales',{persiana: persianaAbierta, aire: aireEncendido});
+		io.sockets.emit('actualizarManuales',{persiana: persianaSubida, aire: aireEncendido});
 		io.sockets.emit('actualizarSensores',datosSensores);
 				
 		// Recibimos nuevas medidas de la interfaz de los sensores y las enviamos a los usuarios
@@ -76,50 +76,30 @@ MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, 
 			//console.log(collection.find().toArray());
 			io.sockets.emit('actualizarSensores',datosSensores);
 		});
+
 		// Cuando el cliente cambia el aire o la persiana, se lo notifica al servidor, que se lo traspasa a los clientes despues
 		client.on('cambioAire', function(){
 			aireEncendido = !aireEncendido;
-			io.sockets.emit('actualizarManuales',{persiana: persianaAbierta, aire: aireEncendido});
+			io.sockets.emit('actualizarManuales',{persiana: persianaSubida, aire: aireEncendido});
 		});
 		client.on('cambioPersiana', function(){
-			persianaAbierta = !persianaAbierta;
-			io.sockets.emit('actualizarManuales',{persiana: persianaAbierta, aire: aireEncendido});
+			persianaSubida = !persianaSubida;
+			io.sockets.emit('actualizarManuales',{persiana: persianaSubida, aire: aireEncendido});
+		});
+
+		// Se recibe una alerta del agente y se envia a los clientes
+		client.on('enviaAlertas',function(data){
+			console.log(data.texto);
+			// Si se nos pide que se cierre/baje la persiana y está subida, la bajamos
+			if(data.cerrar && persianaSubida){ 
+				console.log("Bajamos la persiana a peticion del agente");
+				persianaSubida = false;
+				io.sockets.emit('actualizarManuales',{persiana: persianaSubida, aire: aireEncendido});
+			}
+			io.sockets.emit('recibeAlertas',data.texto);
 		});
 				
-				client.on('alertatemperatura', function(data){
-					if(data.limite == "max"){
-						if (aireEncendido == false) {
-							aireEncendido = true;
-						}
-						if (persianaAbierta == true) {
-							persianaAbierta = false;
-						}
-						
-					}
-					if(data.limite == "min"){
-						if (aireEncendido == false) {
-							aireEncendido = true;
-						}
-					}
-					io.sockets.emit('actualizarActuadores',{persiana: persianaAbierta, aire: aireEncendido});
-				});
-				client.on('alertaluminosidad', function(data){
-					if(data.limite == "max"){
-						if (persianaAbierta == true) {
-							persianaAbierta = false;
-						}
-					}
-					if(data.limite == "min"){
-						if (persianaAbierta == false) {
-							persianaAbierta = true;
-						}
-					}
-					io.sockets.emit('actualizarActuadores',{persiana: persianaAbierta, aire: aireEncendido});
-				});
-		
-				client.on('alertas', function(data){
-					io.sockets.emit('alertas',data);
-				});
+				
 		// Metodo que recoge las desconexiones (calcado de connections.js)
 		client.on('disconnect', function() {
 			//console.log("El cliente "+client.request.connection.remoteAddress+" se va a desconectar");

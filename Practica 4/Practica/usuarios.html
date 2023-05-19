@@ -9,28 +9,34 @@
 	<div>
 		<h2>Estado de los sensores</h2>
 		<div>
-			<p>Datos actualizados a las </p>
-			<p id="timemark"></p>
+			Datos actualizados a las
+			<div id="timemark"></div>
 		</div>
+		<br>
+		<span>
+			Temperatura
+			<div id="temperatura"></div>
+		</span>
+		<br>
 		<div>
-			<p>Temperatura</p>
-			<p id="temperatura"></p>
-		</div>
-		<div>
-			<p>Luminosidad</p>
-			<p id="luminosidad"></p>
-		</div>
-
-		<h2>Estado de los actuadores</h2>
-		<div>
-			<p>Aire acondicionado</p>
-			<p id="aire"></p>
-			<button onclick="changeAC()">Cambiar estado A/C</button>
-			<p>Persiana</p>
-			<p id="persiana"></p>
-			<button onclick="changePersiana()">Cambiar estado persiana</button>
+			Luminosidad
+			<div id="luminosidad"></div>
 		</div>
 	</div>
+	<div>
+		<h2>Estado de los elementos manuales</h2>
+		<div>
+			Aire acondicionado
+			<div id="aire"></div>
+			<button onclick="changeAC()">Cambiar estado A/C</button>
+		</div>
+		<br>
+		<div>
+			Persiana
+			<div id="persiana"></div>
+			<button onclick="changePersiana()">Cambiar estado persiana</button>
+		</div>
+	</div>		
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
@@ -74,6 +80,7 @@
 	// Se actualiza la info de los sensores
 	socket.on('actualizarSensores', function(data){
 		console.log("Llega info de los sensores");
+		console.log(data);
 		const temperatura = document.getElementById("temperatura");
 		const luminosidad = document.getElementById("luminosidad");
 		const fecha = document.getElementById("timemark");
@@ -84,10 +91,10 @@
 
 	// Funciones de los dos botones
 	function changeAC(){
-		socket.emit('cambioAire', 0);
+		socket.emit('cambioAire');
 	}
 	function changePersiana(){
-		socket.emit('cambioPersiana', 0);
+		socket.emit('cambioPersiana');
 	}
 
 	// Si el servidor se cae
@@ -96,11 +103,8 @@
 	});
 
 	// Para mostrar mensajes
-	socket.on('alertas', function(data){
+	socket.on('recibeAlertas', function(data){
 		mostrar_mensaje(data);
-	});
-	socket.on('output-evt', function(data) {
-		mostrar_mensaje('Mensaje de servicio: '+data);
 	});
 </script>
 <style>

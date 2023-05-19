@@ -10,24 +10,32 @@
 <body>
     <h1>Recogida de datos de sensores</h1>
     <div>
-        <label for="">Temperatura</label>
+        <label for="">Temperatura (15,35) </label>
         <input type="text" id="temperatura">
     </div>
     <div>
-        <label for="">Luminosidad</label>
+        <label for="">Luminosidad (100,600) </label>
         <input type="text" id="luminosidad">
     </div>
     <button onclick="sendInfo()">Enviar información</button>    
+    <div>
+		<h2>Estado de los elementos manuales</h2>
+		<div>
+			Aire acondicionado
+			<div id="aire"></div>
+		</div>
+		<br>
+		<div>
+			Persiana
+			<div id="persiana"></div>
+		</div>
+	</div>	
 </body>
 
 <script src="/socket.io/socket.io.js"></script>
 <script>
     const serviceURL = 'localhost:8080';
     const socket = io.connect(serviceURL);
-
-    socket.on('connect', function(){
-        console.log("Sensores conectados")
-    });
 
     function sendInfo(){
         const temp = document.getElementById("temperatura").value;
@@ -40,6 +48,19 @@
         document.getElementById("temperatura").value = "";
         document.getElementById("luminosidad").value = "";
     }
+
+    socket.on('connect', function(){
+        console.log("Sensores conectados")
+    });
+
+    socket.on('actualizarManuales', function(data){
+		console.log("Llega info de los manuales...");
+		console.log(data);
+		const aire = document.getElementById("aire");
+		const persiana = document.getElementById("persiana");
+		(data.aire == true) ? aire.innerText = "Encendido" : aire.innerText = "Apagado";
+		(data.persiana == true) ? persiana.innerText = "Subida" : persiana.innerText = "Bajada";
+	});
 
 </script>
 </html>
