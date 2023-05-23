@@ -53,10 +53,13 @@ MongoClient.connect("mongodb://localhost:27017/", { useUnifiedTopology: true }, 
 	var datosSensores = ""; // ultimos datos de los sensores
 	
 	// En cada ejecucion del servidor, borramos la coleccion para empezar de cero
-	dbo.collection("medidas").drop(function(err, delOK) { if (err) throw err; });
-	dbo.createCollection("medidas", function(err, collection){ if (err) throw err; });
+	dbo.collection("medidas").drop()
+		.then(function () { console.log("Limpiamos la coleccion"); })
+		.catch(function () { console.log("No hay coleccion que limpiar."); });
+	dbo.createCollection("medidas")
+		.then(function () { console.log("Creamos una nueva coleccion"); })
+		.catch(function () { console.log("La colección ya estaba creada."); });
 	var collection = dbo.collection("medidas");
-
 	
 	io.sockets.on('connection', function(client) {
 		// Registramos cada conexion nueva, como en el ejemplo connections
