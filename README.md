@@ -1,5 +1,5 @@
 # UGR-DSD
-Practicas de DSD
+Practicas de Desarrollo de Sistemas Distribuidos
 
 Practica 2: RPC Sun
 
